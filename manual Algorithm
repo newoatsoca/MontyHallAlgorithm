@@ -1,0 +1,113 @@
+import java.util.Scanner;
+import static java.lang.System.exit;
+
+public class ThreeDoors {
+    public static void main(String[] args) {
+        int sameChoice = 0;
+        int sameChoiceAmt = 0;
+        int switchChoice = 0;
+        int switchChoiceAmt = 0;
+        boolean loop = true;
+
+        while (loop){
+        System.out.println("Choose Door 1, 2, or 3 (4 to quit)");
+        Scanner scan = new Scanner(System.in);
+        int response1 = scan.nextInt();
+        Door d1 = new Door();
+        Door d2 = new Door();
+        Door d3 = new Door();
+        boolean lessTrue = true;
+
+        while (lessTrue) {//gets 2 doors to be false and 1 to be true
+            d1.setValue();
+            d2.setValue();
+            d3.setValue();
+            if (((d1.getValue() != true) && (d2.getValue() != true) && (d3.getValue()==true)) || ((d2.getValue() != true) && (d3.getValue() != true) && (d1.getValue()==true)) || ((d1.getValue() != true) && (d3.getValue() != true)&& (d2.getValue()==true))) {
+                    lessTrue = false;
+            }
+        }
+        boolean loop2 = true;
+        while(loop2) {
+            int choice = (int) (Math.floor(Math.random() * 3) + 1);
+            if (response1 == 4) {
+                loop = false;
+                System.out.println("Same Choice Method: " + sameChoice + "/" + sameChoiceAmt +
+                        "\nSwitch Choice Method: " + switchChoice + "/" + switchChoiceAmt);
+                exit(0);
+            } else if ((choice == 1)&&(d1.getValue() == false) && (response1 != 1)) {//finds the door to reveal
+                System.out.println("There is nothing behind Door 1");
+                d1.setRevealed();
+                loop2 = false;
+            } else if ((choice == 2)&&(d2.getValue() == false) && (response1 != 2)) {
+                System.out.println("There is nothing behind Door 2");
+                d2.setRevealed();
+                loop2 = false;
+            } else if ((choice == 3)&&(d3.getValue() == false) && (response1 != 3)) {
+                System.out.println("There is nothing behind Door 3");
+                d3.setRevealed();
+                loop2 = false;
+            }
+
+        }
+
+        int remainingDoor1 = 0;//checks what doors are remaining
+        if ((response1!=1)&&(remainingDoor1==0)&&(d1.getRevealed()==false)){
+            remainingDoor1 = 1;
+        }
+        else if ((response1!=2)&&(remainingDoor1==0)&&(d2.getRevealed()==false)){
+            remainingDoor1 = 2;
+        }
+        else if ((response1!=3)&&(remainingDoor1==0)&&(d3.getRevealed()==false)){
+            remainingDoor1 = 3;
+        }
+        else {
+            System.out.println("wack");
+        }
+
+
+        System.out.println("Now would you like to keep your original guess of Door " + response1 + " or change and choose Door " + remainingDoor1);
+        int response2 = scan.nextInt();
+
+
+        if (response1==response2){
+            if ((response1==1)&&(d1.getValue()==true)){
+                System.out.println("Congratulations, You Won!!");
+                sameChoice += 1;
+                sameChoiceAmt += 1;
+            }
+            else if ((response1==2)&&(d2.getValue()==true)){
+                System.out.println("Congratulations, You Won!!");
+                sameChoice += 1;
+                sameChoiceAmt += 1;
+            }
+            else if ((response1==3)&&(d3.getValue()==true)){
+                System.out.println("Congratulations, You Won!!");
+                sameChoice += 1;
+                sameChoiceAmt += 1;
+            }
+            else{
+                System.out.println("You Lost");
+                sameChoiceAmt += 1;
+            }
+        }
+        else {
+            if ((response2 == 1) && (d1.getValue() == true)) {
+                System.out.println("Congratulations, You Won!!");
+                switchChoice += 1;
+                switchChoiceAmt += 1;
+            } else if ((response2 == 2) && (d2.getValue() == true)) {
+                System.out.println("Congratulations, You Won!!");
+                switchChoice += 1;
+                switchChoiceAmt += 1;
+            } else if ((response2 == 3) && (d3.getValue() == true)) {
+                System.out.println("Congratulations, You Won!!");
+                switchChoice += 1;
+                switchChoiceAmt += 1;
+            } else {
+                System.out.println("You Lost");
+                switchChoiceAmt += 1;
+            }
+        }
+        }
+    }
+}
