@@ -1,0 +1,27 @@
+public class Door {
+    private boolean value;
+    private boolean revealed;
+
+    public Door(){
+        value = true;
+        revealed = false;
+    }
+    public void setRevealed(){
+        revealed = true;
+    }
+    public boolean getRevealed(){
+        return revealed;
+    }
+    public void setValue() {
+        if ((Math.floor(Math.random() * 2) + 1)==1){
+            value = true;
+        }
+        else {
+            value = false;
+        }
+    }
+    public boolean getValue() {
+        return value;
+    }
+
+}
